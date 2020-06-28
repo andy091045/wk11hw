@@ -1,7 +1,13 @@
 import React from 'react';
 import { View, Image, ScrollView, Text, StyleSheet } from 'react-native';
-
+import MapView from 'react-native-maps';
 const SearchScreen = () => {
+    let region = {
+        longitude: 121.544637,
+        latitude: 25.024624,
+        longitudeDelta: 0.01,
+        latitudeDelta: 0.02,
+    };
     return (
         <ScrollView>
             <View>
@@ -13,8 +19,9 @@ const SearchScreen = () => {
                         <Text style={styles.searchWordStyle}>Shibata Inu</Text>
                     </View>
                     <Text style={styles.titleStyle}>You May Like</Text>
+
                 </View>
-                
+
                 <View style={styles.container}>
                     <View style={styles.imageContainer}>
                         <View>
@@ -33,7 +40,7 @@ const SearchScreen = () => {
                                 <Text style={styles.tagStyle}>Cat</Text>
                             </View>
                         </View>
-                       
+
                     </View>
 
                     <View style={styles.imageContainer}>
@@ -45,15 +52,16 @@ const SearchScreen = () => {
                                 <Text style={styles.tagStyle}>Fox</Text>
                             </View>
                         </View>
-                        <View>
-                            <Image
-                                source={require('../Assets/shibata.png')}
-                            />
-                            <View style={styles.likeContent}>
-                                <Text style={styles.tagStyle}>Shibata Inu</Text>
-                            </View>
-                        </View>
-                        
+
+
+                    </View>
+                </View>
+                <View>
+                    <Image
+                        source={require('../Assets/shibata.png')}
+                    />
+                    <View style={styles.likeContent}>
+                        <Text style={styles.tagStyle}>Shibata Inu</Text>
                     </View>
                 </View>
             </View>
