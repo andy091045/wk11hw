@@ -4,7 +4,7 @@ import { setConfigurationAsync } from 'expo/build/AR';
 
 
 const HomeScreen = ({ back, navigation }) => {
-    const [count, setCount] = useState(15815);
+    // const [count, setCount] = useState(15815);
     return (
         <ScrollView>
             <View style={styles.container}>

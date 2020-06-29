@@ -34,7 +34,7 @@ const RankingScreen = ({ apple, navigation }) => {
                             <Image
                                 source={require('../Assets/heart.png')}
                             />
-                            <Text style={styles.likeNumberTextStyle}>{}</Text>
+                            <Text style={styles.likeNumberTextStyle}>{apple.liked}</Text>
                         </View>
                     </View>
                     <Image
