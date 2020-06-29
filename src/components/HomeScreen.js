@@ -1,10 +1,65 @@
 import React, { useState } from 'react';
-import { View, Image, ScrollView, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Image, ScrollView, Text, StyleSheet, TouchableOpacity, AsyncStorage } from 'react-native';
 import { setConfigurationAsync } from 'expo/build/AR';
+import heartImage from "../Assets/heart.png"
+import heartImageUnfill from "../Assets/heart_unfill.png"
+const COUNTER_KEY = "IS_HEART_PRESS";
 
 
 const HomeScreen = ({ back, navigation }) => {
     // const [count, setCount] = useState(15815);
+    const initHeat = async () => {
+        try {
+            let result = await AsyncStorage.getItem(COUNTER_KEY);
+            result = JSON.parse(result);
+            if (result != null) {
+                setValue(result);
+            }
+            else{
+                setValue(heart);
+            }
+        }
+        catch (error) {
+            console.warn(error);
+        }
+    };
+
+    const [heart, setHeart] = useState(false); /*宣告useState*/
+
+    initHeat();
+
+    function renderImage() { /*判斷用哪張圖片渲染*/
+        let imgSrc = ''
+        if (heart) {
+            imgSrc = heartImage;
+        }
+        else {
+            imgSrc = heartImageUnfill;
+        }
+        return (
+            <Image
+                style={styles.heart}
+                source={imgSrc}
+            />
+        );
+    }
+
+
+    setValue = async (b) => {
+        try {
+            await AsyncStorage.setItem(COUNTER_KEY, JSON.stringify(b)); /*設定新內容*/
+        } 
+        catch (error) {
+        }
+        finally {
+            setHeart(b);
+        }
+    };
+
+    const plusOneFn = () => { /*給button用的函式*/
+        setValue(!heart);
+    }
+
     return (
         <ScrollView>
             <View style={styles.container}>
@@ -21,14 +76,10 @@ const HomeScreen = ({ back, navigation }) => {
                         </TouchableOpacity>
                         <View style={styles.likeContent}>
                             <TouchableOpacity
-                                onPress={() => setCount((count + 1))}
+                                onPress={plusOneFn}
                             >
-                                <Image
-                                    style={styles.heart}
-                                    source={require('../Assets/heart.png')}
-                                />
+                                {renderImage()}
                             </TouchableOpacity>
-
                         </View>
                     </View>
                     <View>
