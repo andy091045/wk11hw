@@ -9,7 +9,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import HomeScreen from "./src/components/HomeScreen"
 import SearchScreen from "./src/components/SearchScreen"
-import RankingScreen from "./src/components/RankingScreen"
+import RankingDetail from "./src/components/RankingDetail"
 import ProfileScreen from "./src/components/ProfileScreen"
 const PERSISTENCE_KEY = "ALBUMS_NAVIGATION_STATE";
 const Stack = createStackNavigator();
@@ -145,7 +145,7 @@ const App = () => {
         >
           <Tab.Screen name="Home" component={HomeStack} />
           <Tab.Screen name="Search" component={SearchStack} />
-          <Tab.Screen name="Rank" component={RankingScreen} />
+          <Tab.Screen name="Rank" component={RankingDetail} />
         </Tab.Navigator>
       </NavigationContainer>
     );

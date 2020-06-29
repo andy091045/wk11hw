@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Image, ScrollView, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { setConfigurationAsync } from 'expo/build/AR';
 
-const HomeScreen = ({ back,navigation }) => {
+
+const HomeScreen = ({ back, navigation }) => {
+    const [count, setCount] = useState(15815);
     return (
         <ScrollView>
             <View style={styles.container}>
@@ -17,10 +20,15 @@ const HomeScreen = ({ back,navigation }) => {
                             />
                         </TouchableOpacity>
                         <View style={styles.likeContent}>
-                            <Image
-                                style={styles.heart}
-                                source={require('../Assets/heart.png')}
-                            />
+                            <TouchableOpacity
+                                onPress={() => setCount((count + 1))}
+                            >
+                                <Image
+                                    style={styles.heart}
+                                    source={require('../Assets/heart.png')}
+                                />
+                            </TouchableOpacity>
+
                         </View>
                     </View>
                     <View>

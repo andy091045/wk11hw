@@ -1,14 +1,14 @@
 import React from 'react';
 import { View, Image, ScrollView, Text, StyleSheet, ImageBackground } from 'react-native';
 
-const RankingScreen = () => {
+const RankingScreen = ({ apple, navigation }) => {
     return (
         <ScrollView>
             <View style={styles.container}>
 
                 <View style={styles.header}>
                     <View>
-                    <Text style={styles.headerTitleStyle}>TOP 3</Text>
+                        <Text style={styles.headerTitleStyle}>TOP 3</Text>
                     </View>
                 </View>
 
@@ -34,7 +34,7 @@ const RankingScreen = () => {
                             <Image
                                 source={require('../Assets/heart.png')}
                             />
-                            <Text style={styles.likeNumberTextStyle}>158,15k</Text>
+                            <Text style={styles.likeNumberTextStyle}>{}</Text>
                         </View>
                     </View>
                     <Image
