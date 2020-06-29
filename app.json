@@ -11,9 +11,8 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "image": "./src/Assets/tinyzoo4.png",
+      "backgroundColor": "#7B7B7B"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
