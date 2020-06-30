@@ -168,22 +168,6 @@ const App = () => {
           <Tab.Screen name="Rank" component={RankingDetail} />
         </Tab.Navigator>
       </NavigationContainer>
-
-      // <NavigationContainer>
-      //   <Stack.Navigator>
-      //     <Stack.Screen
-      //       name="User"
-      //       component={UserScreen}
-      //       options={{
-      //         headerTitleStyle: {
-      //           fontWeight: "400",
-      //           fontSize: 20,
-      //         },
-      //       }}
-      //     />
-      //   </Stack.Navigator>
-      // </NavigationContainer>
-
     ) : (
         <NavigationContainer>
           <Stack.Navigator>
@@ -191,10 +175,7 @@ const App = () => {
               name="Login"
               component={LoginScreen}
               options={{
-                headerTitleStyle: {
-                  fontWeight: "400",
-                  fontSize: 20,
-                },
+                headerShown: false
               }}
             />
           </Stack.Navigator>

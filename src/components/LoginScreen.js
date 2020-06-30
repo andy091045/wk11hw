@@ -40,12 +40,12 @@ const LoginScreen = ({ navigation }) => {
 
     const renderButton = () => {
         return loading ? (
-            <ActivityIndicator size="large" style={{ marginTop: 30 }} />
+            <ActivityIndicator size="large" style={{ marginTop: 20 }} />
         ) : (
                 <Button
-                    title="Sign in"
-                    buttonStyle={{ backgroundColor: "#4AAF4C" }}
-                    containerStyle={{ padding: 5 }}
+                    title="comfirm"
+                    buttonStyle={{ backgroundColor: "#FF591D", borderRadius: 30, height: 60, width: 200, marginLeft: 80, }}
+                    containerStyle={{ padding: 10, }}
                     onPress={onSignIn}
                 />
             );
@@ -54,44 +54,75 @@ const LoginScreen = ({ navigation }) => {
     return (
         <View>
             <View style={styles.formStyle}>
-                <Input
-                    labelStyle={{ marginTop: 20 }}
-                    label="Email"
-                    placeholder="ntue@dtd.com"
-                    autoCorrect={false}
-                    autoCapitalize="none"
-                    keyboardType="email-address"
-                    value={email}
-                    onChangeText={(email) => setEmail(email)}
-                />
-                <Input
-                    labelStyle={{ marginTop: 20 }}
-                    label="Password"
-                    placeholder="Must have at least 7 characters"
-                    secureTextEntry
-                    autoCorrect={false}
-                    autoCapitalize="none"
-                    value={password}
-                    onChangeText={(password) => setPassword(password)}
-                />
+                <Text style={styles.loginStyle}>LOG IN</Text>
+                <View style={styles.inputStyle}>
+                    <Input
+                        labelStyle={{ marginTop: 20 }}
+
+                        placeholder="account"
+                        autoCorrect={false}
+                        autoCapitalize="none"
+                        keyboardType="email-address"
+                        value={email}
+                        onChangeText={(email) => setEmail(email)}
+                    />
+                </View>
+                <View style={styles.inputStyle}>
+                    <Input
+                        labelStyle={{ marginTop: 20 }}
+
+                        placeholder="password"
+                        secureTextEntry
+                        autoCorrect={false}
+                        autoCapitalize="none"
+                        value={password}
+                        onChangeText={(password) => setPassword(password)}
+                    />
+                </View>
+                <Text style={styles.forgetStyle}>forget password ?</Text>
                 {renderButton()}
                 <Text style={{ padding: 10, fontSize: 16, color: "red" }}>{error}</Text>
             </View>
-            <View style={styles.formStyle}>
+            {/* <View style={styles.formStyle}>
                 <Button
                     title="Sign in with Facebook"
                     buttonStyle={{ backgroundColor: "#39579A" }}
                     containerStyle={{ padding: 5 }}
                 />
-            </View>
+            </View> */}
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     formStyle: {
+        height: 400,
+        width: 380,
+        marginLeft: 17,
         marginTop: 150,
+        borderRadius: 20,
+        backgroundColor: "#FFBF53",
     },
+    loginStyle: {
+        marginTop: 30,
+        marginLeft: 145,
+        marginBottom: 30,
+        fontWeight: 'bold',
+        fontSize: 30,
+        color: "#FFFFFF",
+    },
+    inputStyle: {
+        marginLeft: 90,
+        marginVertical: 5,
+        height: 60,
+        width: 200,
+        borderRadius: 15,
+        backgroundColor: "#FFFFFF",
+    },
+    forgetStyle: {
+        marginLeft: 90,
+        color: "#FFFFFF",
+    }
 });
 
 export default LoginScreen;
