@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
+import React, { useContext, useState } from "react";
 import { View, Image, ScrollView, Text, StyleSheet, TouchableOpacity, AsyncStorage } from 'react-native';
 import { setConfigurationAsync } from 'expo/build/AR';
 import heartImage from "../Assets/heart.png"
 import heartImageUnfill from "../Assets/heart_unfill.png"
 const COUNTER_KEY = "IS_HEART_PRESS";
-
+import { StoreContext } from "../stores/animalStore";
 
 const HomeScreen = ({ back, navigation }) => {
+    const { animalsState } = useContext(StoreContext);
+    const [animals, setAnimals] = animalsState;
     // const [count, setCount] = useState(15815);
     const initHeat = async () => {
         try {
@@ -15,7 +18,7 @@ const HomeScreen = ({ back, navigation }) => {
             if (result != null) {
                 setValue(result);
             }
-            else{
+            else {
                 setValue(heart);
             }
         }
@@ -48,7 +51,7 @@ const HomeScreen = ({ back, navigation }) => {
     setValue = async (b) => {
         try {
             await AsyncStorage.setItem(COUNTER_KEY, JSON.stringify(b)); /*設定新內容*/
-        } 
+        }
         catch (error) {
         }
         finally {
@@ -87,10 +90,17 @@ const HomeScreen = ({ back, navigation }) => {
                             source={require('../Assets/7008f379e297ebdc31af7caaa2f6fb78.png')}
                         />
                         <View style={styles.likeContent}>
-                            <Image
-                                style={styles.heart}
-                                source={require('../Assets/heart.png')}
-                            />
+                            <TouchableOpacity
+                                // value={animals.liked}
+                                onPress={() => setAnimals(animals.liked + 1)}
+                            >
+                                <Image
+                                    style={styles.heart}
+                                    source={require('../Assets/heart.png')}
+                                />
+                                {/* <Text>{animals.liked}</Text> */}
+                            </TouchableOpacity>
+
                         </View>
 
                     </View>

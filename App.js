@@ -1,12 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, Platform, AsyncStorage } from 'react-native';
+import { StoreProvider } from "./src/stores/animalStore";
 import MapView from 'react-native-maps';
-
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
 import HomeScreen from "./src/components/HomeScreen"
 import SearchScreen from "./src/components/SearchScreen"
 import RankingDetail from "./src/components/RankingDetail"
@@ -106,48 +105,50 @@ const App = () => {
     return null;
   } else {
     return (
-      <NavigationContainer
-        initialState={initialNavigationState}
-        onStateChange={(state) =>
-          AsyncStorage.setItem(PERSISTENCE_KEY, JSON.stringify(state))
-        }>
+      <StoreProvider>
+        <NavigationContainer
+          initialState={initialNavigationState}
+          onStateChange={(state) =>
+            AsyncStorage.setItem(PERSISTENCE_KEY, JSON.stringify(state))
+          }>
 
-        <Tab.Navigator
-          screenOptions={({ route }) => ({
-            tabBarIcon: ({ focused, color, size }) => {
-              let iconName;
+          <Tab.Navigator
+            screenOptions={({ route }) => ({
+              tabBarIcon: ({ focused, color, size }) => {
+                let iconName;
 
-              if (route.name === 'Home') {
-                iconName = focused
-                  ? require('./src/Assets/owl-active.png') :
-                  require('./src/Assets/グループ-1.png');
-              } else if (route.name === 'Rank') {
-                iconName = focused
-                  ? require('./src/Assets/crown-5.png') :
-                  require('./src/Assets/crown-6.png');
-              } else if (route.name == 'Search') {
-                iconName = focused
-                  ? require('./src/Assets/search-white-2.png') :
-                  require('./src/Assets/search-white-3.png');
-              }
-              return (
-                <Image
-                  style={{ width: 30, height: 30 }}
-                  source={iconName}
-                />
-              );
-            },
-          })}
-          tabBarOptions={{
-            activeTintColor: '#000',
-            inactiveTintColor: 'gray',
-          }}
-        >
-          <Tab.Screen name="Home" component={HomeStack} />
-          <Tab.Screen name="Search" component={SearchStack} />
-          <Tab.Screen name="Rank" component={RankingDetail} />
-        </Tab.Navigator>
-      </NavigationContainer>
+                if (route.name === 'Home') {
+                  iconName = focused
+                    ? require('./src/Assets/owl-active.png') :
+                    require('./src/Assets/グループ-1.png');
+                } else if (route.name === 'Rank') {
+                  iconName = focused
+                    ? require('./src/Assets/crown-5.png') :
+                    require('./src/Assets/crown-6.png');
+                } else if (route.name == 'Search') {
+                  iconName = focused
+                    ? require('./src/Assets/search-white-2.png') :
+                    require('./src/Assets/search-white-3.png');
+                }
+                return (
+                  <Image
+                    style={{ width: 30, height: 30 }}
+                    source={iconName}
+                  />
+                );
+              },
+            })}
+            tabBarOptions={{
+              activeTintColor: '#000',
+              inactiveTintColor: 'gray',
+            }}
+          >
+            <Tab.Screen name="Home" component={HomeStack} />
+            <Tab.Screen name="Search" component={SearchStack} />
+            <Tab.Screen name="Rank" component={RankingDetail} />
+          </Tab.Navigator>
+        </NavigationContainer>
+      </StoreProvider>
     );
   }
 }
