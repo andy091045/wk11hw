@@ -7,6 +7,7 @@ import heartImageUnfill from "../Assets/heart_unfill.png"
 const COUNTER_KEY = "IS_HEART_PRESS";
 import { StoreContext } from "../stores/animalStore";
 
+var i = 0;
 const HomeScreen = ({ back, navigation }) => {
     const { animalsState } = useContext(StoreContext);
     const [animals, setAnimals] = animalsState;
@@ -35,9 +36,11 @@ const HomeScreen = ({ back, navigation }) => {
         let imgSrc = ''
         if (heart) {
             imgSrc = heartImage;
+            i = 1;
         }
         else {
             imgSrc = heartImageUnfill;
+            i = 2;
         }
         return (
             <Image
@@ -60,7 +63,14 @@ const HomeScreen = ({ back, navigation }) => {
     };
 
     const plusOneFn = () => { /*給button用的函式*/
+
         setValue(!heart);
+        const animalsCopy = [...animals];
+        const seal1Copy = animalsCopy[0];
+        if (i % 2 != 0) { seal1Copy.liked = seal1Copy.liked - 1; } else { seal1Copy.liked = seal1Copy.liked + 1; }
+
+        animalsCopy[0] = seal1Copy;
+        setAnimals(animalsCopy);
     }
 
     return (
@@ -91,8 +101,14 @@ const HomeScreen = ({ back, navigation }) => {
                         />
                         <View style={styles.likeContent}>
                             <TouchableOpacity
-                            // value={animals.liked}
-                            // onPress={() => setAnimals(animals.liked + 1)}
+                                // value={animals.liked}
+                                onPress={() => {
+                                    const animalsCopy = [...animals];
+                                    const seal1Copy = animalsCopy[0];
+                                    seal1Copy.liked = seal1Copy.liked + 1;
+                                    animalsCopy[0] = seal1Copy;
+                                    setAnimals(animalsCopy)
+                                }}
                             >
                                 <Image
                                     style={styles.heart}

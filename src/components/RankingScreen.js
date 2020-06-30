@@ -61,7 +61,7 @@ const RankingScreen = ({ apple, navigation }) => {
                             <Image
                                 source={require('../Assets/heart.png')}
                             />
-                            <Text style={styles.likeNumberTextStyle}>158,00k</Text>
+                            <Text style={styles.likeNumberTextStyle}>158,00</Text>
                         </View>
                     </View>
                     <View>
@@ -80,7 +80,7 @@ const RankingScreen = ({ apple, navigation }) => {
                             <Image
                                 source={require('../Assets/heart.png')}
                             />
-                            <Text style={styles.likeNumberTextStyle}>148,15k</Text>
+                            <Text style={styles.likeNumberTextStyle}>148,15</Text>
                         </View>
                     </View>
                 </View>
