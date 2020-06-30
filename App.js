@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import * as firebase from "firebase";
 import { StyleSheet, Text, View, Image, Platform, AsyncStorage } from 'react-native';
-import { StoreProvider } from "./src/stores/animalStore";
+import { StoreProvider, StoreContext } from "./src/stores/animalStore";
 import MapView from 'react-native-maps';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -10,9 +11,26 @@ import HomeScreen from "./src/components/HomeScreen"
 import SearchScreen from "./src/components/SearchScreen"
 import RankingDetail from "./src/components/RankingDetail"
 import ProfileScreen from "./src/components/ProfileScreen"
+import LoginScreen from "./src/components/LoginScreen";
+import UserScreen from "./src/components/UserScreen";
+
 const PERSISTENCE_KEY = "ALBUMS_NAVIGATION_STATE";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDfvXChhILy2gc8UTHpd00Jt4ie-EDXFz0",
+  authDomain: "tinyzoo-b8980.firebaseapp.com",
+  databaseURL: "https://tinyzoo-b8980.firebaseio.com",
+  projectId: "tinyzoo-b8980",
+  storageBucket: "tinyzoo-b8980.appspot.com",
+  messagingSenderId: "494210765558",
+  appId: "1:494210765558:web:ed6f23ca0c1cb44a9b12d7",
+  measurementId: "G-NYBEKYN9GW"
+};
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 const HomeStack = () => {
   return (
@@ -83,6 +101,8 @@ const SearchStack = ({ navigation }) => {
 const App = () => {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
   const [initialNavigationState, setInitialNavigationState] = React.useState();
+  const { isLoginState } = useContext(StoreContext);
+  const [isLogin, setIsLogin] = isLoginState;
   React.useEffect(() => {
     async function loadResourcesAndDataAsync() {
       try {
@@ -104,52 +124,82 @@ const App = () => {
   if (!isLoadingComplete) {
     return null;
   } else {
-    return (
-      <StoreProvider>
-        <NavigationContainer
-          initialState={initialNavigationState}
-          onStateChange={(state) =>
-            AsyncStorage.setItem(PERSISTENCE_KEY, JSON.stringify(state))
-          }>
+    return isLogin ? (
 
-          <Tab.Navigator
-            screenOptions={({ route }) => ({
-              tabBarIcon: ({ focused, color, size }) => {
-                let iconName;
+      <NavigationContainer
+        initialState={initialNavigationState}
+        onStateChange={(state) =>
+          AsyncStorage.setItem(PERSISTENCE_KEY, JSON.stringify(state))
+        }>
 
-                if (route.name === 'Home') {
-                  iconName = focused
-                    ? require('./src/Assets/owl-active.png') :
-                    require('./src/Assets/グループ-1.png');
-                } else if (route.name === 'Rank') {
-                  iconName = focused
-                    ? require('./src/Assets/crown-5.png') :
-                    require('./src/Assets/crown-6.png');
-                } else if (route.name == 'Search') {
-                  iconName = focused
-                    ? require('./src/Assets/search-white-2.png') :
-                    require('./src/Assets/search-white-3.png');
-                }
-                return (
-                  <Image
-                    style={{ width: 30, height: 30 }}
-                    source={iconName}
-                  />
-                );
-              },
-            })}
-            tabBarOptions={{
-              activeTintColor: '#000',
-              inactiveTintColor: 'gray',
-            }}
-          >
-            <Tab.Screen name="Home" component={HomeStack} />
-            <Tab.Screen name="Search" component={SearchStack} />
-            <Tab.Screen name="Rank" component={RankingDetail} />
-          </Tab.Navigator>
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName;
+
+              if (route.name === 'Home') {
+                iconName = focused
+                  ? require('./src/Assets/owl-active.png') :
+                  require('./src/Assets/グループ-1.png');
+              } else if (route.name === 'Rank') {
+                iconName = focused
+                  ? require('./src/Assets/crown-5.png') :
+                  require('./src/Assets/crown-6.png');
+              } else if (route.name == 'Search') {
+                iconName = focused
+                  ? require('./src/Assets/search-white-2.png') :
+                  require('./src/Assets/search-white-3.png');
+              }
+              return (
+                <Image
+                  style={{ width: 30, height: 30 }}
+                  source={iconName}
+                />
+              );
+            },
+          })}
+          tabBarOptions={{
+            activeTintColor: '#000',
+            inactiveTintColor: 'gray',
+          }}
+        >
+          <Tab.Screen name="Home" component={HomeStack} />
+          <Tab.Screen name="Search" component={SearchStack} />
+          <Tab.Screen name="Rank" component={RankingDetail} />
+        </Tab.Navigator>
+      </NavigationContainer>
+
+      // <NavigationContainer>
+      //   <Stack.Navigator>
+      //     <Stack.Screen
+      //       name="User"
+      //       component={UserScreen}
+      //       options={{
+      //         headerTitleStyle: {
+      //           fontWeight: "400",
+      //           fontSize: 20,
+      //         },
+      //       }}
+      //     />
+      //   </Stack.Navigator>
+      // </NavigationContainer>
+
+    ) : (
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="Login"
+              component={LoginScreen}
+              options={{
+                headerTitleStyle: {
+                  fontWeight: "400",
+                  fontSize: 20,
+                },
+              }}
+            />
+          </Stack.Navigator>
         </NavigationContainer>
-      </StoreProvider>
-    );
+      );
   }
 }
 
@@ -190,4 +240,12 @@ const styles = StyleSheet.create({
   }
 })
 
-export default App;
+export default () => {
+  return (
+    <StoreProvider>
+      <App />
+    </StoreProvider>
+  );
+};
+
+// export default App;

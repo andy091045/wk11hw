@@ -91,8 +91,8 @@ const HomeScreen = ({ back, navigation }) => {
                         />
                         <View style={styles.likeContent}>
                             <TouchableOpacity
-                                // value={animals.liked}
-                                onPress={() => setAnimals(animals.liked + 1)}
+                            // value={animals.liked}
+                            // onPress={() => setAnimals(animals.liked + 1)}
                             >
                                 <Image
                                     style={styles.heart}
