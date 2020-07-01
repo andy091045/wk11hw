@@ -44,7 +44,7 @@ const LoginScreen = ({ navigation }) => {
         ) : (
                 <Button
                     title="comfirm"
-                    buttonStyle={{ backgroundColor: "#FF591D", borderRadius: 30, height: 60, width: 200, marginLeft: 80, }}
+                    buttonStyle={{ backgroundColor: "#000000", borderRadius: 30, height: 60, width: 200, marginLeft: 80}}
                     containerStyle={{ padding: 10, }}
                     onPress={onSignIn}
                 />
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
         marginLeft: 17,
         marginTop: 150,
         borderRadius: 20,
-        backgroundColor: "#FFBF53",
+        backgroundColor: "#878787",
     },
     loginStyle: {
         marginTop: 30,

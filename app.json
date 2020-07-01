@@ -12,7 +12,7 @@
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./src/Assets/tinyzoo4.png",
-      "backgroundColor": "#FFBF53"
+      "backgroundColor": "#7B7B7B"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
