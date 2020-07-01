@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import * as firebase from "firebase";
-import { StyleSheet, Text, View, Image, Platform, AsyncStorage } from 'react-native';
+import { StyleSheet, Text, View, Image, Platform, AsyncStorage, Animated, Button } from 'react-native';
 import { StoreProvider, StoreContext } from "./src/stores/animalStore";
 import MapView from 'react-native-maps';
 import { NavigationContainer } from '@react-navigation/native';
@@ -32,7 +32,10 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 
+
+
 const HomeStack = () => {
+
   return (
     <Stack.Navigator>
 
@@ -40,6 +43,7 @@ const HomeStack = () => {
         name="Home"
         component={HomeScreen}
         options={({ back }) => ({
+          headerShown: false,
           title: "",
           headerStyle: {
             backgroundColor: '#E3E3E3',
@@ -190,6 +194,14 @@ const styles = StyleSheet.create({
     width: 130,
     marginLeft: 90,
     backgroundColor: '#fff',
+    borderRadius: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  headerLeftButtonContainer: {
+    height: 35,
+    width: 130,
+    marginLeft: 90,
     borderRadius: 15,
     justifyContent: 'center',
     alignItems: 'center',
